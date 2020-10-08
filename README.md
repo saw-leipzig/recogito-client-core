@@ -1,7 +1,7 @@
 # recogito-client-core
 
 Core functions, classes and components for [RecogitoJS](https://github.com/recogito/recogito-js) and
-[Annotorious](https://github.com/recogito/annotorious).
+[Annotorious](https://github.com/recogito/annotorious). Extended with a Tree-Editor-Widget
 
 ## Installing 
 
