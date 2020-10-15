@@ -4,6 +4,7 @@ import TimeAgo from 'timeago-react';
 import DropdownMenu from './DropdownMenu';
 import TextEntryField from './TextEntryField';
 import { ChevronDownIcon } from '../../../Icons';
+import Environment from '../../../Environment';
 
 /** A single comment inside the CommentWidget **/
 const Comment = props => {
@@ -27,18 +28,18 @@ const Comment = props => {
   }
 
   const creatorInfo = props.body.creator && 
-    <div className="r6o-lastmodified">
-      <span className="r6o-lastmodified-by">{props.body.creator.name || props.body.creator.id}</span>
+    <div className="lastmodified">
+      <span className="lastmodified-by">{props.body.creator.name}</span>
       { props.body.created && 
-        <span className="r6o-lastmodified-at">
-          <TimeAgo datetime={props.env.toClientTime(props.body.created)} />
+        <span className="lastmodified-at">
+          <TimeAgo datetime={Environment.toClientTime(props.body.created)} />
         </span> 
       }
     </div>
 
   return props.readOnly ? (
     <div className="r6o-widget comment">
-      <div className="r6o-readonly-comment">{props.body.value}</div>
+      <div className="value">{props.body.value}</div>
       { creatorInfo }
     </div>
   ) : (
@@ -53,7 +54,7 @@ const Comment = props => {
       { creatorInfo }
 
       <div 
-        className={isMenuVisible ? "r6o-icon r6o-arrow-down r6o-menu-open" : "r6o-icon r6o-arrow-down"} 
+        className={isMenuVisible ? "icon arrow-down menu-open" : "icon arrow-down"} 
         onClick={() => setIsMenuVisible(!isMenuVisible)}>
         <ChevronDownIcon width={12} />
       </div>

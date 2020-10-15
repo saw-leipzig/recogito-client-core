@@ -3,29 +3,24 @@
   min-height:3em;
   background-color:#fff;
   position:relative;
+  padding:8px 10px;
 
-  .r6o-editable-text,
-  .r6o-readonly-comment {
-    padding:8px 10px;
-  }
-
-  .r6o-lastmodified {
+  .lastmodified {
     border:1px solid $lightgrey-border;
     display:inline-block;
     border-radius:2px;
-    margin:0 10px 8px 10px;
     padding:4px 5px;
     line-height:100%;
     font-size:12px;
 
-    .r6o-lastmodified-at {
+    .lastmodified-at {
       color:$lightgrey-type;
       padding-left:3px;
     }
     
   }
 
-  .r6o-arrow-down {
+  .arrow-down {
     position:absolute;
     height: 20px;
     width: 20px;
@@ -40,11 +35,11 @@
     @include rounded-corners(1px);
   }
 
-  .r6o-arrow-down.r6o-menu-open {
+  .arrow-down.menu-open {
     border-color:$ocean;
   }
 
-  .r6o-comment-dropdown-menu {
+  .comment-dropdown-menu {
     position:absolute;
     top:32px;
     right:8px;

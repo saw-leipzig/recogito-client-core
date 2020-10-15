@@ -3,24 +3,6 @@ import EventEmitter from 'tiny-emitter';
 
 const IS_TOUCH = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-const IS_INTERNET_EXPLORER =
-  navigator?.userAgent.match(/(MSIE|Trident)/);
-
-/** Tests whether maybeChildEl is contained in containerEl **/
-const contains = (containerEl, maybeChildEl) => {
-  if (IS_INTERNET_EXPLORER) {
-    // In IE, .contains returns false for text nodes
-    // https://stackoverflow.com/questions/44140712/ie-acting-strange-with-node-contains-and-text-nodes
-    if (maybeChildEl.nodeType == Node.TEXT_NODE)
-      return containerEl === maybeChildEl.parentNode || containerEl.contains(maybeChildEl.parentNode);
-    else
-      return containerEl.contains(maybeChildEl);
-  } else {
-    // Things can be so simple, unless you're in IE
-    return containerEl.contains(maybeChildEl);
-  }
-}
-
 export default class SelectionHandler extends EventEmitter {
 
   constructor(element, highlighter, readOnly) {
@@ -53,6 +35,7 @@ export default class SelectionHandler extends EventEmitter {
 
   _onMouseUp = evt => {
     if (this.isEnabled) {
+      console.log("triggered");
       const selection = getSelection();
 
       if (selection.isCollapsed) {
@@ -72,7 +55,7 @@ export default class SelectionHandler extends EventEmitter {
         // Make sure the selection is entirely inside this.el
         const { commonAncestorContainer } = selectedRange;
 
-        if (contains(this.el, commonAncestorContainer)) {
+        if (this.el.contains(commonAncestorContainer)) {
           const stub = rangeToSelection(selectedRange, this.el);
 
           const spans = this.highlighter.wrapRange(selectedRange);
@@ -100,7 +83,7 @@ export default class SelectionHandler extends EventEmitter {
   }
 
   _hideNativeSelection = () => {
-    this.el.classList.add('r6o-hide-selection');
+    this.el.classList.add('hide-selection');
   }
 
   clearSelection = () => {
@@ -117,7 +100,7 @@ export default class SelectionHandler extends EventEmitter {
       document.selection.empty();
     }
 
-    this.el.classList.remove('r6o-hide-selection');
+    this.el.classList.remove('hide-selection');
 
     const spans = Array.prototype.slice.call(this.el.querySelectorAll('.r6o-selection'));
     if (spans) {

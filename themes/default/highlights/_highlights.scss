@@ -9,10 +9,10 @@
   cursor:pointer;
 }
 
-.r6o-hide-selection::selection, .r6o-hide-selection ::selection {
+.hide-selection::selection, .hide-selection ::selection {
   background: transparent;
 }
 
-.r6o-hide-selection::-moz-selection .r6o-hide-selection ::-moz-selection{
+.hide-selection::-moz-selection .hide-selection ::-moz-selection{
   background: transparent;
 }

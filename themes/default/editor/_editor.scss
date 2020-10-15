@@ -1,7 +1,8 @@
 @import "widgets/autocomplete";
 @import "widgets/textentry";
 @import "widgets/comment/comment";
-@import "widgets/tag/tag";
+@import "widgets/tree/tree";
+@import "widgets/type/typeSelector";
 
 .r6o-editor {
   position:absolute;
@@ -19,7 +20,7 @@
      -moz-transition:opacity 0.1s ease-in-out;
           transition:opacity 0.1s ease-in-out;
 
-  .r6o-arrow {
+  .arrow {
     position:absolute;
     overflow:hidden;
     top:-12px;
@@ -28,7 +29,7 @@
     height:12px;
   }
 
-  .r6o-arrow:after {
+  .arrow:after {
     content:'';
     position:absolute;
     top:5px;
@@ -39,7 +40,7 @@
     @include rotate(45deg);
   }
 
-  .r6o-editor-inner {
+  .inner {
     background-color:#fff;
     @include rounded-corners(2px);
     @include box-shadow(2px, 2px, 42px, 0.4);
@@ -53,7 +54,7 @@
     }
   }
 
-  .r6o-footer {
+  .footer {
     text-align:right;
     padding:8px 0;
 
@@ -67,7 +68,7 @@
 .r6o-editor.align-right {
   margin-left:8px;
 
-  .r6o-arrow {
+  .arrow {
     left:auto;
     right:12px;
   }
@@ -77,12 +78,12 @@
 .r6o-editor.align-bottom {
   margin-bottom:14px;
 
-  .r6o-arrow {
+  .arrow {
     top:auto;
     bottom:-12px;
   }
 
-  .r6o-arrow::after {
+  .arrow::after {
     top:-11px;
     box-shadow:none;
   }

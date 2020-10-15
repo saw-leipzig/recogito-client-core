@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useCombobox } from 'downshift'
 
 const Autocomplete = props => {
@@ -6,9 +6,13 @@ const Autocomplete = props => {
   const element = useRef();
 
   const [ inputItems, setInputItems ] = useState(props.vocabulary);
+
+  useEffect(() => 
+    element.current?.querySelector('input')?.focus(), []);
   
   const onInputValueChange = ({ inputValue }) => {
     if (inputValue.length > 0) {
+      // Set suggestions to prefix matches...
       const prefixMatches = props.vocabulary.filter(item => {
         return item.toLowerCase().startsWith(inputValue.toLowerCase());
       });
@@ -43,7 +47,7 @@ const Autocomplete = props => {
       props.onSubmit(inputValue);
   }
 
-  const onKeyUp = evt => {
+  const onKeyDown = evt => {
     const { value } = evt.target;
     
     if (evt.which == 13 && highlightedIndex == -1) {
@@ -52,8 +56,6 @@ const Autocomplete = props => {
       setInputItems(props.vocabulary); // Show all options on key down
     } else if (evt.which == 27) {
       props.onCancel && props.onCancel();
-    } else {
-      props.onChange && props.onChange(value);
     }
   }
 
@@ -61,9 +63,10 @@ const Autocomplete = props => {
     <div ref={element} className="r6o-autocomplete">
       <div {...getComboboxProps()}>
         <input 
-          {...getInputProps({ onKeyUp })}
+          {...getInputProps({ onKeyDown  })}
           placeholder={props.placeholder}
-          defaultValue={props.initialValue} />
+          defaultValue={props.initialValue}
+           />
       </div>
       <ul {...getMenuProps()}>
         {isOpen && inputItems.map((item, index) => (

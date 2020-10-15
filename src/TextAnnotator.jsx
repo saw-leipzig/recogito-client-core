@@ -4,6 +4,9 @@ import Highlighter from './highlighter/Highlighter';
 import SelectionHandler from './selection/SelectionHandler';
 import RelationsLayer from './relations/RelationsLayer';
 import RelationEditor from './relations/editor/RelationEditor';
+import { addPolyfills } from './utils';
+
+addPolyfills(); // For Microsoft Edge
 
 /**
  * Pulls the strings between the annotation highlight layer
@@ -34,9 +37,9 @@ export default class TextAnnotator extends Component {
   }
 
   componentDidMount() {
-    this.highlighter = new Highlighter(this.props.contentEl, this.props.config.formatter);
+    this.highlighter = new Highlighter(this.props.contentEl, this.props.formatter);
 
-    this.selectionHandler = new SelectionHandler(this.props.contentEl, this.highlighter, this.props.config.readOnly);
+    this.selectionHandler = new SelectionHandler(this.props.contentEl, this.highlighter, this.props.readOnly);
     this.selectionHandler.on('select', this.handleSelect);
 
     this.relationsLayer = new RelationsLayer(this.props.contentEl);
@@ -266,12 +269,17 @@ export default class TextAnnotator extends Component {
             wrapperEl={this.props.wrapperEl}
             annotation={this.state.selectedAnnotation}
             selectedElement={this.state.selectedDOMElement}
-            config={this.props.config}
+            readOnly={this.props.readOnly}
+            headless={this.state.headless}
             applyTemplate={this.state.applyTemplate}
             onAnnotationCreated={this.onCreateOrUpdateAnnotation('onAnnotationCreated')}
             onAnnotationUpdated={this.onCreateOrUpdateAnnotation('onAnnotationUpdated')}
             onAnnotationDeleted={this.onDeleteAnnotation}
-            onCancel={this.onCancelAnnotation} />
+            onCancel={this.onCancelAnnotation}>
+
+            {this.props.children}
+
+          </Editor>
         }
 
         { this.state.selectedRelation &&

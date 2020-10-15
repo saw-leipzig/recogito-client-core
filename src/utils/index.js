@@ -35,12 +35,7 @@ const deflateNodeList = parents => {
   // Replace original children with deflated
   parents.forEach(parent => {
     const deflatedChildren = deflateOne(parent);
-
-    // This would be easier, but breaks on IE11
-    // parent.innerHTML = '';
-    while (parent.firstChild)
-      parent.removeChild(parent.lastChild);
-
+    parent.innerHTML = '';
     deflatedChildren.forEach(node => parent.appendChild(node));
   });
 
